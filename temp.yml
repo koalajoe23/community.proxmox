@@ -1,0 +1,31 @@
+- name: Upload local ISO to Proxmox VE Cluster storage, even if ISO with same name and size present
+  community.proxmox.proxmox_storage_contents:
+    api_host: proxmoxhost
+    api_user: root@pam
+    api_password: password123
+    validate_certs: false
+    node: dev01
+    storage: local
+    state: present
+    filename: proxmox-install.iso
+    content: iso
+    file: "localpath/proxmox.iso"
+    checksum_algorithm: sha256
+    checksum: "042aea10a0f14f2d391373599be69d53a75dde9951fc3d3cd10b6100aa7a9f24"
+    force: true
+
+- name: Download Importable Disk to Proxmox VE Cluster storage
+  community.proxmox.proxmox_storage_contents:
+    api_host: proxmoxhost
+    api_user: root@pam
+    api_password: password123
+    validate_certs: false
+    node: dev01
+    storage: local
+    state: present
+    filename: debian13.qcow2
+    content: import
+    url: "https://cloud.debian.org/images/cloud/trixie/latest/debian-13-genericcloud-arm64.qcow2"
+    url_verify_certs: false
+    checksum_algorithm: sha256
+    checksum: "042aea10a0f14f2d391373599be69d53a75dde9951fc3d3cd10b6100aa7a9f24"
